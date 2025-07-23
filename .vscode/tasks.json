@@ -1,0 +1,52 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "make",
+            "type": "process",
+            "command": "make",
+            "args": [
+                "TOOLPREFIX=riscv64-suse-linux-",
+                "${input:makeType}",
+            ],
+            "group": "build",
+            // Use the standard MS compiler pattern to detect errors, warnings and infos
+            "problemMatcher": "$gcc",
+            "options": {
+                "cwd": "${workspaceFolder}/xv6-lab-2024"
+            }
+        },
+        {
+            "label": "bear",
+            "type": "process",
+            "command": "bear",
+            "args": [
+                "--",
+                "make",
+                "TOOLPREFIX=riscv64-suse-linux-",
+                "qemu",
+            ],
+            "group": "build",
+            // Use the standard MS compiler pattern to detect errors, warnings and infos
+            "problemMatcher": "$gcc",
+            "options": {
+                "cwd": "${workspaceFolder}/xv6-lab-2024"
+            }
+        }
+    ],
+    "inputs": [
+        {
+            "id": "makeType",
+            "description": "make type",
+            "type": "pickString",
+            "options": [
+                "grade",
+                "qemu",
+                "qemu-gdb",
+                "clean"
+            ]
+        }
+    ]
+}
